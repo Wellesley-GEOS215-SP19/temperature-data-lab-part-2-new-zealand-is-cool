@@ -1,5 +1,7 @@
 %% Add a comment at the top with the names of all members of your group
 
+%Leafia and Nhia
+
 %% Load in a list of all 18 stations and their corresponding latitudes and longitudes
 load GlobalStationsLatLon.mat
 
@@ -15,10 +17,17 @@ RecentYear = 1960; %you can see how your results change if you vary this value
 P_all = NaN*zeros(length(sta),2); %example of how to do this for the full observational period
 %<-- do the same thing just for values from RecentYear to today
 
+P_recent = NaN*zeros(length(sta),2); %same length because the time period does not affect how many stations there are
+
 %Use a for loop to calculate the linear trend over both the full
 %observational period and the time from RecentYear (i.e. 1960) to today
 %using the function StationTempObs_LinearTrend
 %<--
+
+for i = 1:18
+    [P_all(i,1:2),P_recent(i,1:2)]=StationTempObs_LinearTrend(sta(i),RecentYear)
+end
+
 
 %% Plot global maps of station locations
 %Example code, showing how to plot the locations of all 18 stations
@@ -28,12 +37,18 @@ load coastlines
 plotm(coastlat,coastlon)
 plotm(lat,lon,'m.','markersize',15)
 title('Locations of stations with observational temperature data')
-
+%%
 %Follow the model above, now using the function scatterm rather than plotm
 %to plot symbols for all 18 stations colored by the rate of temperature
 %change from RecentYear to present (i.e. the slope of the linear trendline)
 %<--
-
+figure(2);clf
+worldmap('World')
+load coastlines
+plotm(coastlat,coastlon)
+scatterm(lat,lon,20,P_recent(:,1),'filled')
+title('Locations of stations with observational temperature data from 1960 to Present')
+colorbar
 %Extension option: again using scatterm, plot the difference between the
 %local rate of temperature change (plotted above) and the global mean rate
 %of temperature change over the same period (from your analysis of the

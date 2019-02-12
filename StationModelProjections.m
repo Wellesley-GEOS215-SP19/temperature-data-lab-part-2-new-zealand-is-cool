@@ -35,7 +35,15 @@ function [baseline_model, tempAnnMeanAnomaly, P] = StationModelProjections(stati
 filename = ['model' num2str(station_number) '.csv'];
 %Extract the year and annual mean temperature data
 %<--
-
+stationdata = readtable(filename);
+yearlist = stationdata.Year;
+tempData = table2array(stationdata(:,4:15));
+tempMean = nanmean(tempData);
+for i = 1:12
+    indnan = find(isnan(tempData(:,i)) == 1); 
+    tempData(indnan,i) = tempMean(i);
+end
+tempAnnMean = mean(tempData');
 %% Calculate the mean and standard deviation of the annual mean temperatures
 %  over the baseline period over the first 20 years of the modeled 21st
 %  century (2006-2025) - if you follow the template for output values I
@@ -43,7 +51,9 @@ filename = ['model' num2str(station_number) '.csv'];
 %  with both values called baseline_model
  %<-- (this will take multiple lines of code - see the procedure you
  %followed last week for a reminder of how you can do this)
-
+ ind_baseline = find(stationdata.Year >= 2006 & stationdata.Year <= 2025);
+baseline_model = NaN*zeros((ind_baseline),2);
+baseline_model(:,1) = tempAnnMean(ind_baseline)
 
 %% Calculate the 5-year moving mean smoothed annual mean temperature anomaly over the modeled period
  %<-- anomaly
