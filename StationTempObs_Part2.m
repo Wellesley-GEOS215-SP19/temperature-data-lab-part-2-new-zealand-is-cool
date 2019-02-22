@@ -49,7 +49,7 @@ load coastlines
 plotm(coastlat,coastlon)
 title('Locations of stations with observational temperature data from 1960 to Present')
 colorbar
-scatterm(lat,lon,40,P_recent(:,1), 'filled')
+scatterm(lat,lon,100,P_recent(:,1), 'filled')
 
 %Extension option: again using scatterm, plot the difference between the
 %local rate of temperature change (plotted above) and the global mean rate
@@ -101,7 +101,7 @@ load coastlines
 plotm(coastlat,coastlon)
 colorbar
 title('Rate of Temperature Change Projected at Each Station Over the 21st Century')
-scatterm(lat,lon,40,LinearTrendData(1,:), 'filled')
+scatterm(lat,lon,100,LinearTrendData(1,:), 'filled')
 %% Plot a global map of the interannual variability in annual mean temperature at each station
 %as determined by the baseline standard deviation of the temperatures from
 %2005 to 2025
@@ -113,7 +113,7 @@ load coastlines
 plotm(coastlat,coastlon)
 colorbar
 title('Interannual Variability in Annual Mean Temperature')
-scatterm(lat,lon,40,baselineData(2,:), 'filled')
+scatterm(lat,lon,100,baselineData(2,:), 'filled')
 %% Calculate the time of emergence of the long-term change in temperature from local variability
 %There are many ways to make this calcuation, but here we will compare the
 %linear trend over time (i.e. the rate of projected temperature change
@@ -136,4 +136,4 @@ load coastlines
 plotm(coastlat,coastlon)
 colorbar
 title('Time of Emergence of the Long-term Change in Temperature from Local Variability')
-scatterm(lat,lon,40,YearofEmer, 'filled')
+scatterm(lat,lon,100,YearofEmer, 'filled')
