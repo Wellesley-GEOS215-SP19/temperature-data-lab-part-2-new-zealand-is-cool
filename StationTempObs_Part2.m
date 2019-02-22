@@ -120,12 +120,20 @@ scatterm(lat,lon,40,baselineData(2,:), 'filled')
 %plotted above) with the interannual variability in the station's
 %temperature, as determined by the baseline standard deviation
 
-
 %Calculate the year of long-term temperature signal emergence in the model
 %projections, calculated as the time (beginning from 2006) when the linear
 %temperature trend will have reached 2x the standard deviation of the
 %temperatures from the baseline period
 %<--
+%divide slope by standard deviation 
+YearofEmer = LinearTrendData(1,:)./baselineData(2,:);
 
 %Plot a global map showing the year of emergence
 %<--
+figure(5);clf
+worldmap('World')
+load coastlines
+plotm(coastlat,coastlon)
+colorbar
+title('Time of Emergence of the Long-term Change in Temperature from Local Variability')
+scatterm(lat,lon,40,YearofEmer, 'filled')
